@@ -109,6 +109,7 @@
         $('.update').click(function () {
             dataId = $(this).attr('data-id')
             var url = "/update/"+dataId
+            $('.update-box').attr('action',url)
             $.ajax(
                 {
                     type:"GET",
