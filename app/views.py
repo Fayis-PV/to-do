@@ -57,6 +57,9 @@ def add(req):
     
     return redirect('/')
 
+from django.views.decorators.csrf import csrf_protect
+
+@csrf_protect
 def login_user(req):
     if req.method == 'POST':
         
