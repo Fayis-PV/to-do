@@ -1,0 +1,34 @@
+{% if to_do_list %}
+        <div class="card todo-table m-3 w-100" style="overflow:auto; max-width: 600px;">
+            {% if user.is_authenticated %}
+                <h5 class="bg-info text-light p-2 text-center m-3 rounded">{{user.username}}'s ToDo Datas</h5>
+                <table class="table sm-table">
+                        {% for tr in to_do_list %}
+                    
+                        <tr> 
+                            <td></td>
+                            <th class="text-primary" scope="row"> {{tr.project_name|upper}}</th>
+                            <td>{{tr.deadline|date:'d/M/Y : D'}}</td>
+                            <td>{{tr.timeline|time:'h:i:A'}}</td>
+                            <td></td>
+
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{% url 'todo:complete' tr.id %}" class="btn btn-primary"><i class="fa-regular fa-square-check"></i></a>
+                                    <a class="update btn btn-info" data-id="{{tr.id}}"><i class="fa fa-pen-to-square"></i></a>
+                                    <a href="{% url 'todo:delete' tr.id %}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                </div>
+                                
+                            </td>
+                            <td></td>
+
+                        </tr>
+                    {% empty %}
+                        <tr><th><h5 class="bg-info text-light p-2 text-center m-3 rounded">{{user.username}},You have not any data for Before</h5></th></tr>
+                    {% endfor %}
+                </table>
+                {% else %}
+                <h6 class="bg-info text-light p-2 text-center m-3 rounded">Please Login to save form and get your data</h6>
+            {% endif %}
+        </div>
+    {% endif %}

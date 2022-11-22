@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do app</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+
+    <header class="w-100 d-flex justify-content-end align-items-center p-3">
+        <!-- <a href="{% url 'todo:login' %} "> -->
+        {% if user.is_authenticated %}
+            <h6 class="h6 p-2 text-primary mx-3">Hi, {{user|upper}}</h6>
+            <a href="{% url 'todo:logout' %}"  class="logout px-4 btn btn-primary rounded my-2">LOGOUT <span><i class="fa-solid fa-user"></i></span></a>
+        {% else %}
+            <div class="login px-4 btn btn-primary rounded my-2">LOGIN <span><i class="fa-solid fa-user"></i></span></div>
+        {% endif %}
+        <!-- </a> -->
+    </header>
+    {% include "app/update.html" %}
+    {% include "app/pop-up.html" %}
+
+    <div class="head my-5 mx-2 p-2 text-center" style="">
+        <h1 class="h1">Welcome to the ToDo App</h1>
+    </div>
+    
+    <div class="card main p-3">
+        {% include 'app/message.html' %}
+        <form action="{% url 'todo:add' %} " method="post" class="add card-body w-100">
+            {% csrf_token %}
+            {{form}}
+            <button type="submit" class="btn btn-light text-info " >Save ToDo</button>
+        </form>
+        <!-- <div class="foot">
+            <label for="login">Already Have an Account: <a class="text-success" href="/login" id="login"> LOGIN </a></label>
+            <label for="signup">New Account: <a class="text-light" href="/signup">SIGN UP</a></label>
+            <span class='btn btn-sm btn-info'>? Help</span>
+        </div> -->
+    </div>
+    
+    {% include "app/todolist.html" %}
+    {% include "app/completed_list.html" %}
+
+    <footer class="position-sticky  mt-5 top-100 bg-light text-primary w-100 p-3 d-flex justify-content-around ">
+        <span></span><a href="#" class="text-decoration-none">Created BY Muhammed Fayis PV </a> | <a class="text-decoration-none" href="{% url 'todo:home' %}"> ToDo App Website</a><span></span>
+    </footer>
+    <script >
+        var logBox = document.getElementsByClassName('body-box')[0]
+        var loginBtn= document.getElementsByClassName('login')[0].addEventListener('click',()=>{
+            logBox.classList.replace('d-none','d-flex')
+        })
+
+        window.addEventListener('click',(event)=>{
+            if (event.target == logBox) {
+                logBox.classList.replace('d-flex','d-none')                
+            }
+        })
+        </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        // logout alert
+        $('.logout').click(()=>{
+            if (confirm('Thank you... Hope you meet again...')) {
+                return true
+            } else {
+                return false
+            } 
+        })
+
+        // give date and time default values
+        let today = new Date().toJSON().slice(0,10)
+        var deadline = document.getElementsByClassName('date')[0].defaultValue = today;
+
+        var time = new Date();
+        var timeNow = time.toLocaleString('en-GB', { hour: 'numeric', minute: 'numeric' })
+        console.log(timeNow);
+        document.getElementsByClassName('time')[0].defaultValue = timeNow
+
+        // login and signup box toggle
+        $('.log-label').click(function(){
+            $('.log-in').css('margin-left','0%')
+        })
+        $('.sign-label').click(function(){
+            $('.log-in').css('margin-left','-50%')
+        })
+
+        // some css
+        $('.slide').children('div').css('transition','1s')
+        $('.body-box').css('transition','2s')
+        $('body').css('height','auto')
+
+        $('.btn-danger').click(function(){
+            if (confirm('Do you want to delete this project?')) {
+                return true
+            } else {
+                return false
+            } 
+        })
+        
+        // update box with ajax
+        var winUpdate = document.getElementsByClassName('win-update')[0]
+        $('.update').click(function () {
+            dataId = $(this).attr('data-id')
+            var url = "/update/"+dataId
+            $.ajax(
+                {
+                    type:"GET",
+                    url: url,
+                    data: function(req,data){},
+                    success: function(data){
+                        winUpdate.classList.replace('d-none','d-flex')
+                        var projectName = data.name
+                        var date = data.deadline
+                        var time = data.timeline
+                        document.getElementsByClassName('name')[0].defaultValue = projectName;
+                        document.getElementsByClassName('date')[0].defaultValue = date;
+                        document.getElementsByClassName('time')[0].defaultValue = time;
+                    }
+                }
+            )
+        })
+        window.addEventListener('click',(event)=>{
+            if (event.target == winUpdate) {
+                winUpdate.classList.replace('d-flex','d-none')                
+            }
+        })
+        
+        // login button toggle with ajax
+        {% if user.is_authenticated %}
+        {% else %}
+            var logBox = document.getElementsByClassName('body-box')[0]
+            $.ajax(
+            {
+                type:"GET",
+                url: " {% url 'todo:login' %} ",
+                data:function (req,data) {
+                    console.log(data);
+                },
+                success: function( data ) 
+                {
+                    
+                    logBox.classList.replace('d-none','d-flex')
+                    if (data.view === 'signview') {
+                        $('.log-in').css('margin-left','-50%')
+                    } else {
+                        $('.log-in').css('margin-left','0%')
+                    }
+                },
+                error: function (req,err) {
+                    console.log(err);
+                }
+            })
+        {% endif %}
+            
+    </script>
+</body>
+</html>

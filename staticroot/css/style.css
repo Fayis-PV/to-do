@@ -1,0 +1,99 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+body{
+    background-color: aliceblue;
+    color: rgb(229, 237, 241) !important;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.head{
+    font-weight: 700;
+    font-size: 25px;
+    text-shadow: 2px 2px 10px rgb(70, 27, 157);
+}
+.main{
+    
+    width: 370px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    align-items: center;
+    background: linear-gradient(-45deg,rgb(39, 31, 201),rgb(89, 101, 227)) ;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 20px rgb(116, 181, 205);
+}
+@media screen and (max-width : 400px){
+    .main{
+        width: 95%;
+    }
+}
+hr{
+    width: 80%;
+    background: #000;
+
+}
+.add{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    align-items: center;
+}
+.add-input{
+    width: 95%;
+    background-color: rgb(230, 235, 236);
+    padding: 6px;
+    border: 1px solid rgb(150, 148, 148);
+    border-radius: 5px;
+}
+.date-label{
+    width: 95%;
+    background-color: rgb(230, 235, 236);
+    border: 1px solid rgb(150, 148, 148);
+    padding: 3px;
+    color: rgb(18, 86, 142);
+    border-radius: 5px;
+
+
+    /* padding: 3px; */
+}
+.date-label input{
+    background: linear-gradient(90deg,rgb(223, 223, 223),rgb(194, 193, 193));
+    border: 1px solid rgb(150, 148, 148);
+    width: 20px;
+
+}
+.log-label,.sign-label{
+    color: aqua;
+    background-color: #fff;
+    border-radius: 10px;
+}
+.foot label{
+    font-size: smaller;
+}
+#radio-login:checked+.card-body .log-in{
+    margin-left: 0%;
+}
+#radio-login:checked+.log-label{
+    background: linear-gradient(45deg,rgb(216, 251, 252),rgb(176, 205, 252));
+    color: blue;
+}
+
+#radio-signup:checked+.card-body .log-in{
+    margin-left: -50%;
+}
+#radio-signup:checked+.sign-label{
+    background: linear-gradient(45deg,rgb(216, 251, 252),rgb(176, 205, 252));
+    color: blue;
+}

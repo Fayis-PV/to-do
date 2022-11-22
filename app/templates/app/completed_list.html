@@ -1,0 +1,24 @@
+{% if user.is_authenticated and completed_list %}
+        <div class="card todo-table m-3 w-100" style="overflow:auto; max-width: 600px;">
+            <h5 class="bg-info text-light p-2 text-center m-3 rounded">{{user.username}}'s Completed Project Datas</h5>
+            <table class="table sm-table">
+                {% for tr in completed_list %}
+                
+                    <tr> 
+                        <td></td>
+                        <th class="text-primary" scope="row"> {{tr.project_name|upper}}</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <a href="{% url 'todo:delete' tr.id %}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                        </td>
+
+                    </tr>
+                {% empty %}
+                    <tr><th><h5 class="bg-info text-light p-2 text-center m-3 rounded">{{user.username}},You have not any data for Before</h5></th></tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endif %}

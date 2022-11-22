@@ -1,0 +1,7 @@
+{{form.username}}
+{{form.email}}
+{{form.password1}}
+{{form.password2}}
+{% if messages %}
+{% for message in messages %}{{message}} {% endfor %}
+{% endif %}
