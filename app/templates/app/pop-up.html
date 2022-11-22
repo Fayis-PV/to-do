@@ -25,7 +25,7 @@
                             <form action="{% url 'todo:signup' %}" class="form-group" style="width: 90%;" method='post'>
                                 {% csrf_token %}
                                 {{signup_form}} <br>
-                                <input type="checkbox" name="signup-check" id="signup-check" class="col"><label for="signup-check" class="sm-label px-2 col">Keep me logged in</label><br>
+                                <div><strong>Username should be unique and both username and password must contain numbers,Capital and small alphas and characters(@)...</strong></div>
                                 <input type="submit" value="Sign Up" class='btn btn-light text-info px-4 m-4'>
 
                             </form>
