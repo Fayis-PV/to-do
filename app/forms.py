@@ -33,8 +33,8 @@ class UserForm(UserCreationForm):
         labels = {
             'username':'',
             'email':'',
-            'password1':'',
-            'password2': '',
+            'password1':'Password :',
+            'password2': 'Confirm Password :',
         }
         widgets ={
             'username': forms.TextInput(attrs={'class':'col-md-12 form-control m-2','placeholder':'Enter Name...'}),
