@@ -1,5 +1,5 @@
 <div class="body-box position-fixed w-100  d-none justify-content-center align-items-center" style="height: 100%; z-index: 1000; background: rgba(0, 0, 0, 0.175);">  
-    <div class="login-box card h-75 px-4 p-1 m-1" style="background-color: #fff; opacity:1;width: 500px;">
+    <div class="login-box card px-4 p-1 m-1" style="background-color: #fff; opacity:1;width: 500px; height= 500px;">
         <div class="card-body row p-0 " style="overflow: auto;">
             <label for="radio-login" class="log-label col-sm-6 text-center" style="padding: 10px;">Login <span> <i class="fa fa-lock"> </i></span></label>
             <label for="radio-signup"  class="sign-label col-sm-6 text-center" style="padding: 10px;">Sign Up<span> <i class="fa fa-user"></i></span></label>
@@ -21,11 +21,10 @@
                         </div>
                         <div class="sign-up bg-primary d-flex flex-column justify-content-between align-items-start p-4 text-light" style="width: 50%; float:left;height: 100%;">
                             <h1 class="h1">Sign UP </h1>
-                            <small class="p">Welcome to the ToDo app... Please Sign-up and login to get start using the ToDo app</small>
+                            <small class="p lh-sm" >Username should be unique and both username and password must contain numbers,Capital and small alphas and characters(@)...</small>
                             <form action="{% url 'todo:signup' %}" class="form-group" style="width: 90%;" method='post'>
                                 {% csrf_token %}
                                 {{signup_form}} <br>
-                                <div><strong>Username should be unique and both username and password must contain numbers,Capital and small alphas and characters(@)...</strong></div>
                                 <input type="submit" value="Sign Up" class='btn btn-light text-info px-4 m-4'>
 
                             </form>
